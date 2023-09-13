@@ -1,0 +1,78 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+
+
+@{ 
+
+    var site = Model.Root();
+    var selection = Model.Root().Children.Where(x => x.IsVisible(PublishedValueFallback)).ToArray();
+    
+}
+
+
+
+<!--    HEADER PART  -->
+    <header>
+      <div class="container">
+        <img class="header-logo" src="~/images/logos/logotype.svg" />
+
+        <div class="topnav" id="myTopnav">
+          <div class="nav-links">
+            <a href="@site.Url()" class="@(Model.Id == site.Id ? "active": null)">@site.Name</a>
+            
+            @if (selection?.Length > 0)
+            {
+                @foreach (var item in selection)
+                {
+                    <a href="@item.Url(PublishedUrlProvider)" class="@(item.IsAncestorOrSelf(Model) ? "active" : null)">@item.Name</a>
+                }
+            }
+          </div>
+
+          <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+          <a
+            href="javascript:void(0);"
+            class="burger-icon"
+            onclick="burgerMenu()"
+          >
+            <i class="fa fa-bars"></i>
+          </a>
+
+          <a class="btn-theme"
+            >Login <i class="fa-regular fa-arrow-up-right"></i
+          ></a>
+        </div>
+
+        <div class="contact-info">
+          <div>
+            <span
+              ><i class="fa-regular fa-phone-volume"></i> +46 (8) 121 470
+              50</span
+            >
+            <span
+              ><i class="fa-regular fa-envelope-dot"></i> info@crito.com</span
+            >
+            <span
+              ><i class="fa-regular fa-location-dot"></i> Sveavägen 31, 111 34
+              STOCKHOLM</span
+            >
+          </div>
+          <div class="social-media">
+            <a href=""
+              ><i class="fa fa-facebook-square" aria-hidden="true"></i
+            ></a>
+            <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href=""
+              ><i class="fa fa-linkedin-square" aria-hidden="true"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </header>

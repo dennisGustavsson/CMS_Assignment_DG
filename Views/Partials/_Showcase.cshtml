@@ -1,29 +1,37 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
+@using Umbraco.Cms.Core.Models
 
-<!--    SHOWCASE PART   -->
+
 <section class="showcase">
-  <div class="container-fluid">
-    <div class="text-area">
-      <h2>We Provide The Best Business Solutions</h2>
-      <p>
-        Establish your vision and value proposition and turn them into
-        testable prototypes.
-      </p>
-      <a class="btn-theme"
-        >Get Consulting <i class="fa-regular fa-arrow-up-right"></i
-      ></a>
-      <a class="btn-theme-line"
-        >Learn More <i class="fa-regular fa-arrow-up-right"></i
-      ></a>
-    </div>
-    <div class="image-area">
-      <img src="./images/showcase-image.svg" alt="showcase-image" />
-    </div>
-    <img
-      class="background-lines"
-      src="./images/bg-effects/background-lines.svg"
-      alt="background-lines"
-    />
-  </div>
+      <div class="container-fluid">
+        <div class="text-area">
+          <h2>@Model.Value("showcaseTitle")</h2>
+          <p>
+            @Model.Value("showcaseDescription")
+          </p>
+          <a class="btn-theme"
+            href="@Model.Value("showcaseButtonURL")"
+            >@Model.Value("showcaseButtonText") <i class="fa-regular fa-arrow-up-right"></i
+          ></a>
+          <a class="btn-theme-line"
+            >Learn More <i class="fa-regular fa-arrow-up-right"></i
+          ></a>
+        </div>
+        <div class="image-area">
+        @{
+            var showcaseImage = Model.Value<MediaWithCrops>("showcaseImage");
+            if (showcaseImage != null)
+            {
+            <img src="@showcaseImage.MediaUrl()" alt="@Model.Value("showcaseTitle")" />
+            }
+        }
+        <!-- <img src="./images/showcase-image.svg" alt="showcase-image" /> -->
+        </div>
+        <img
+          class="background-lines"
+          src="./images/bg-effects/background-lines.svg"
+          alt="background-lines"
+        />
+      </div>
 </section>
