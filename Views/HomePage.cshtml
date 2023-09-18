@@ -1,6 +1,8 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+
 @{
 	Layout = "_Layout.cshtml";
 	ViewData["PageTitle"] = @Model.Value("pageTitle");
@@ -14,4 +16,8 @@
 
 <main>
 @await Html.PartialAsync("_Brands")
+@await Html.PartialAsync("_Features")
+
+
+
 </main>
