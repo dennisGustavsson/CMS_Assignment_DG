@@ -1,5 +1,7 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using Umbraco.Cms.Core.Models
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
 
 
     <!-- CHOOSE US PART -->
@@ -8,46 +10,41 @@
       <div class="container-fluid">
         <div class="bg-box"></div>
         <div class="container">
+            <div>
+                <h2 class="section-title">Why Choose Us</h2>
+                <h3 class="section-title-2">
+                  @Model.Value("chooseUsHeading")
+                </h3>
+                
+                @{
+                    var perks = Model.Value<IEnumerable<BlockListItem>>("chooseUsPerks")?.Select(x => x.Content);
+                    foreach (var perk in perks)
+                    {
+                        var typedMediaPickerSingle = perk.Value<MediaWithCrops>("chooseUsPerkIcon");
+                        
+                        <div class="qualities">
+                            @{if (typedMediaPickerSingle != null)
+                                {
+                                <img src="@typedMediaPickerSingle?.MediaUrl()"  alt="@typedMediaPickerSingle?.Value("alt")" />
+                                }
+                            }
+                            <div class="text-content">
+                                <span class="title">@perk.Value("chooseUsPerkTitle")</span>
+                                <span>@perk.Value("chooseUsPerkDescription")</span>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
           <div>
-            <h2 class="section-title">Why Choose Us</h2>
-            <h3 class="section-title-2">
-              Why We Are The Best Business Consulting Agency
-            </h3>
-            <div class="qualities">
-              <img src="/images/icons/tumme.svg" alt="" />
-              <div class="text-content">
-                <span class="title">Process Excellence</span>
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </div>
-            <div class="qualities">
-              <img src="/images/icons/femkant.svg" alt="" />
-              <div>
-                <span class="title">Process Excellence</span>
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </div>
-            <div class="qualities">
-              <img src="/images/icons/pentool.svg" alt="" />
-              <div>
-                <span class="title">Process Excellence</span>
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </div>
-            <div class="qualities">
-              <img src="/images/icons/coghead.svg" alt="" />
-              <div>
-                <span class="title">Process Excellence</span>
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <img
-              class="chooseusImage"
-              src="~/images/amy-hirschi-k0c8ko3e6aa-unsplash.jpg"
-              alt="alternative image text"
-            />
+        @{
+            var chooseUsImage = Model.Value<MediaWithCrops>("chooseUsImage");
+            if (chooseUsImage != null)
+            {
+            <img class="chooseusImage" src="@chooseUsImage.MediaUrl()" alt="@Model.Value("chooseUsHeading")" />
+            }
+        }
+
           </div>
         </div>
       </div>
