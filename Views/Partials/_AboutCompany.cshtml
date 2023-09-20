@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+
+
+
+
+
+<section class="about-showcase">
+      <div class="container">
+        <div class="left-box">
+        @{
+            if(@Model.Value("aboutSectionImageDescription").ToString() != "")
+                {
+                    <div class="quote">
+                        <span>
+                        <h4>@Model.Value("aboutSectionImageHeading"),</h4>
+                        <h5>@Model.Value("aboutSectionImageTitle")</h5>
+                        </span>
+                        
+                        <p>"@Model.Value("aboutSectionImageDescription")"</p>
+                    </div>
+                }
+        }
+
+            @{
+                var aboutImage = Model.Value<MediaWithCrops>("aboutSectionImage");
+                if (aboutImage != null)
+                {
+                <img src="@aboutImage.MediaUrl()" alt="@Model.Value("aboutSectionImageDescription")" />
+                }
+            }
+        </div>
+
+        <div class="right-box">
+          <h4>About Company</h4>
+          <h3>@Model.Value("aboutSectionHeading")</h3>
+          <p>
+            @Model.Value("aboutSectionDescription")
+          </p>
+
+          <div>
+            <a class="btn-theme-black" href="#learnmore">
+              Learn More <i class="fa-regular fa-arrow-up-right"></i
+            ></a>
+            <a class="btn-theme-line btn-round"
+              ><i class="fa-solid fa-play"></i></a
+            ><span class="mx-3">Intro Video</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+

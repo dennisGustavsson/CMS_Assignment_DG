@@ -1,0 +1,49 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+    <!-- OUR SERVICES PART -->
+    <section class="services">
+      <div class="container">
+        <div>
+          <h2 class="section-title">@Model.Value("ourServicesSectionTitle")</h2>
+          <h3 class="section-title-2">
+            @Model.Value("ourServicesSectionHeading")
+          </h3>
+        </div>
+
+        <!-- GRID -->
+        <div class="service-grid">
+
+            @{
+                var ourServices = Model.Value<IEnumerable<BlockListItem>>("ourServices")?.Select(x => x.Content);
+                foreach (var ourService in ourServices)
+                {
+                  <div class="service-card">
+                    <div class="card-line"></div>
+                    <h3 class="card-title">@ourService.Value("ourServiceTitle")</h3>
+                    <p>
+                      @ourService.Value("ourServiceDescription")
+                    </p>
+                    <div class="d-flex justify-content-end">
+                      <a class="btn-theme-black btn-round" href="@ourService.Value("ourServiceLink")"
+                        ><i class="fa-solid fa-arrow-right"></i
+                      ></a>
+                    </div>
+                  </div>
+                }
+            }
+
+        </div>
+        <div class="d-flex justify-content-center">
+          <a class="btn-theme-line" href="@Model.Value("ourServicesSectionButtonURL")">
+            @Model.Value("ourServicesSectionButtonText") <i class="fa-solid fa-arrow-up-right"></i
+          ></a>
+        </div>
+      </div>
+      <img
+        class="background-lines"
+        src="./images/bg-effects/background-lines-right.svg"
+        alt="background-lines"
+      />
+    </section>

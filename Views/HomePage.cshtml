@@ -1,6 +1,7 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
 
 
 @{
@@ -17,7 +18,8 @@
 <main>
 @await Html.PartialAsync("_Brands")
 @await Html.PartialAsync("_Features")
-
-
+@await Html.PartialAsync("_AboutCompany")
+@await Html.PartialAsync("_OurServices")
+@await Html.PartialAsync("_ChooseUs")
 
 </main>
