@@ -47,6 +47,17 @@ button {
   border: none;
 }
 
+.pagination-btn {
+  border: 1px solid #A4A4A4;
+  border-radius: 4px;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 3px;
+}
+.pagination-btn:hover {
+  background-color: #0E1021;
+}
+
 html,
 body {
   font-size: 16px;
@@ -108,6 +119,11 @@ input {
 input:focus {
   border: none;
   outline: 2px solid #F9D783;
+}
+
+.bg-theme {
+  background-color: #F0EFE9;
+  padding-top: 2rem;
 }
 
 header {
@@ -592,13 +608,15 @@ header .container .btn-theme {
 }
 .articles .article-grid .article-card {
   padding: 1rem;
-  border: 1px solid #FFFFFF;
+  border: 1px solid transparent;
   cursor: pointer;
   transition: 200ms ease-in;
   border-radius: 15px;
+  text-decoration: none;
 }
 .articles .article-grid .article-card .article-img {
   position: relative;
+  margin-bottom: 1rem;
 }
 .articles .article-grid .article-card .article-img img {
   width: 100%;
@@ -614,7 +632,118 @@ header .container .btn-theme {
   padding: 1rem 0.7rem;
 }
 .articles .article-grid .article-card:hover {
-  border: 1px solid #0E1021;
+  border: 1px solid #F0EFE9;
+  text-decoration: none;
+  color: #191919;
+}
+.articles .pagination {
+  display: flex;
+  justify-content: center;
+  margin-block: 2rem;
+}
+
+.article-details .container {
+  padding-block: 3rem;
+}
+.article-details .container .article-header {
+  padding-bottom: 2rem;
+}
+.article-details .container .article-header h3 {
+  font-size: 45px;
+  width: 50%;
+}
+.article-details .container .article-header span i {
+  margin-inline: 0.5rem;
+  font-size: 0.6rem;
+  color: #F9D783;
+}
+.article-details .container .article-columns {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  row-gap: 2rem;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+}
+.article-details .container .article-columns .article {
+  min-height: 70dvh;
+}
+.article-details .container .article-columns .article img {
+  width: 100%;
+  margin-bottom: 3rem;
+}
+.article-details .container .article-columns .article .article-tags {
+  list-style: none;
+  padding: 0;
+}
+.article-details .container .article-columns .article .article-tags li {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #F3F3F3;
+  display: inline-block;
+}
+.article-details .container .article-columns .sidebar {
+  padding-inline: 1rem;
+}
+.article-details .container .article-columns .sidebar form {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.article-details .container .article-columns .sidebar form button {
+  position: absolute;
+  background-color: transparent;
+  top: 18px;
+  left: 20px;
+}
+.article-details .container .article-columns .sidebar form input {
+  background-color: #F3F3F3;
+  width: 100%;
+  padding-left: 3rem;
+}
+.article-details .container .article-columns .sidebar h5 {
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  padding-bottom: 5px;
+}
+.article-details .container .article-columns .sidebar h5::before {
+  content: "";
+  position: absolute;
+  width: 35%; /* Adjust this value to control the length of the underline */
+  height: 2px; /* Adjust the height of the underline as needed */
+  background-color: #000; /* Change the color of the underline as needed */
+  bottom: 0;
+  left: 0;
+}
+.article-details .container .article-columns .sidebar .recent-posts, .article-details .container .article-columns .sidebar .categories {
+  border: 1px solid #F3F3F3;
+  padding: 1.8rem;
+  margin-bottom: 2rem;
+}
+.article-details .container .article-columns .sidebar .recent-posts .recent-post, .article-details .container .article-columns .sidebar .categories .recent-post {
+  cursor: pointer;
+  width: 100%;
+  border-bottom: 1px solid #F3F3F3;
+  display: block;
+  padding-block: 1rem;
+}
+.article-details .container .article-columns .sidebar .recent-posts .recent-post:hover, .article-details .container .article-columns .sidebar .categories .recent-post:hover {
+  color: #A4A4A4;
+}
+.article-details .container .article-columns .sidebar .recent-posts .recent-post .post-title, .article-details .container .article-columns .sidebar .categories .recent-post .post-title {
+  font-weight: 700;
+}
+.article-details .container .article-columns .sidebar .recent-posts .recent-post span, .article-details .container .article-columns .sidebar .categories .recent-post span {
+  font-size: 14px;
+  font-style: italic;
+}
+.article-details .container .article-columns .sidebar .recent-posts .category, .article-details .container .article-columns .sidebar .categories .category {
+  margin-block: 0.6rem;
+}
+.article-details .container .article-columns .sidebar .recent-posts .category .title, .article-details .container .article-columns .sidebar .categories .category .title {
+  font-weight: bold;
+}
+.article-details .container .article-columns .sidebar .recent-posts .category .sum, .article-details .container .article-columns .sidebar .categories .category .sum {
+  color: #A4A4A4;
 }
 
 .newletter {
@@ -629,6 +758,44 @@ header .container .btn-theme {
 .newletter .container {
   display: flex;
   justify-content: space-between;
+}
+
+.contactus .container .contact-cards {
+  display: flex;
+  justify-content: space-between;
+}
+.contactus .container .contact-cards .contact-card {
+  flex: 1;
+  border: 1px solid #A4A4A4;
+  margin: 2rem;
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.contactus .container .contact-cards .contact-card h4 {
+  display: inline-block;
+  margin: 0px 0px 0px 23px;
+}
+.contactus .container .contact-cards .contact-card p {
+  margin-block: 0rem;
+}
+.contactus .container .contact-cards .contact-card .icon {
+  background-color: #0E1021;
+  color: #FFFFFF;
+  display: inline-block;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  position: relative;
+}
+.contactus .container .contact-cards .contact-card .icon i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.contactus .contact-form {
+  background-color: #F0EFE9;
 }
 
 footer {

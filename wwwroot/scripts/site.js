@@ -1,5 +1,5 @@
-
-                        try {
+/*
+try {
   function burgerMenu() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -29,6 +29,9 @@
   // Attach a listener to window resize event
 window.addEventListener("resize", handleResponsive);
 } catch {}
+
+*/
+
 /*
 const footerPosition = (element, scrollHeight, innerHeight) => {
   try {
