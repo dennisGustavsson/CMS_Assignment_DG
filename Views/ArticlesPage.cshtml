@@ -1,8 +1,29 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArticlesPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.PublishedContent;
 @{
-	Layout = "LayoutWithBreadcrumb.cshtml";
+    Layout = "LayoutWithBreadcrumb.cshtml";
+
+    var itemsPerPage = 6;
+    var pageNumber = 1;
+
+    if (!int.TryParse(Context.Request.Query["page"], out pageNumber))
+    {
+        pageNumber = 1;
+    }
+
+
+
+    var selection = Umbraco.Content(Guid.Parse("96f6b956-9902-4e2e-928d-742ca9511c57"))?
+    .ChildrenOfType("articleItemPage")?
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate).ToList();
+
+    var totalItems = selection?.Count() ?? 0;
+    var pagedItems = selection?.Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage);
+
+
 }
 
 
@@ -16,53 +37,65 @@
     </div>
 
     <div class="article-grid">
+
+    @if(pagedItems != null)
+    {
+        @foreach (var item in pagedItems!)
+        {
+            var url = item.Url();
+            var date = item.CreateDate;
+            var image = item.Value<IPublishedContent>("articleImage");
+            var category = item.Value("articleCategory");
+            var title = item.Name();
+            var description = item.Value("articleIngress");
+
+
+            <a class="article-card" href="@url">
+                <div class="article-img">
+                    <img
+                    src="@image?.Url()"
+                    alt=""
+                    />
+                    <span class="article-date">@date.ToString("dd") @date.ToString("MMM")</span>
+                </div>
+                <span>@category</span>
+                <h5>@title</h5>
+                <p>@description</p>
+            </a>
+                    
+        }
+    }
+
+
+
         
         
-@{
-	var selection = Umbraco.Content(Guid.Parse("96f6b956-9902-4e2e-928d-742ca9511c57"))
-    .ChildrenOfType("articleItemPage")
-    .Where(x => x.IsVisible())
-    .OrderByDescending(x => x.CreateDate).ToList();
-}
 
-
-	@foreach (var item in selection)
-	{
-	    var url = item.Url();
-	    var date = item.CreateDate;
-	    var image = item.Value<IPublishedContent>("articleImage");
-	
-		<li>
-			<a href="@item.Url()">@item.Name()</a>
-		</li>
-	}
-
-
-
-        
-        
-      <a class="article-card" href="/article-details.html">
-        <div class="article-img">
-          <img
-            src="./images/linkedin-sales-solutions-Mis5fyJi7Q0-unsplash.jpg"
-            alt=""
-          />
-          <span class="article-date">12 sep</span>
-        </div>
-        <span>article tag</span>
-        <h3>Bla bla bla lorem osv</h3>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
-      </a>
       
     </div>
 
     <div class="pagination">
-      <a class="pagination-btn" href="#"> < </a>
-      <a class="pagination-btn" href="#"> 1 </a>
-      <a class="pagination-btn" href="#"> 2 </a>
-      <a class="pagination-btn" href="#"> 3 </a>
-      <a class="pagination-btn" href="#"> 4 </a>
-      <a class="pagination-btn" href="#"> > </a>
+
+        @if(pageNumber > 1)
+        {
+            <a class="pagination-btn" href="?page=@(pageNumber - 1)"> <i class="fa-sharp fa-solid fa-chevron-left"></i></a>
+        }
+            @for(int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+            {
+                if(i == pageNumber)
+                {
+                    <a class="pagination-btn active" href="#"> @i </a>
+                } else {
+
+                    <a class="pagination-btn" href="?page=@i"> @i </a>
+                }
+            }
+
+        @if(pageNumber < Math.Ceiling((decimal)totalItems / itemsPerPage))
+        {
+            <a class="pagination-btn" href="?page=@(pageNumber + 1)"> <i class="fa-sharp fa-solid fa-chevron-right"></i> </a>
+        }
+
     </div>
   </div>
 </section>

@@ -1,6 +1,95 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ArticleItemPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Services;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+@inject IUserService UserService;
 @{
-	Layout = "LayoutWithBreadcrumb.cshtml";
+    Layout = "LayoutWithBreadcrumb.cshtml";
+    var userService = UserService;
+    var image = Model.Value<IPublishedContent>("articleImage");
+    var tags = Model.Value<IEnumerable<string>>("articleTags");
 }
+
+
+
+    <section class="article-details">
+      <div class="container">
+        <div class="article-header">
+          <h3>@Model.Name</h3>
+          <span class="date">@Model.CreateDate.ToString("MMM dd, yyyy") <i class="fa-solid fa-circle"></i></span>
+          <span class="tags">@Model.Value("articleCategory") <i class="fa-solid fa-circle"></i></span>
+          <span class="author">@Model.CreatorName(UserService)</span>
+        </div>
+        <div class="article-columns">
+          <div class="article">
+            <img
+              src="@image.Url()"
+              alt=""
+            />
+            <p>
+              @Model.Value("articleContent")
+            </p>
+
+            <div>
+              <ul class="article-tags">
+                  @foreach(var tag in tags)
+                  {
+                  
+                <li>@tag</li>
+                  }
+
+              </ul>
+            </div>
+          </div>
+          <div class="sidebar">
+            <form>
+              <button for="article-searchbar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+              <input
+                id="article-searchbar"
+                type="text"
+                placeholder="Type to search.."
+              />
+            </form>
+            <div class="recent-posts">
+              <h5>Recent Posts</h5>
+              <a class="recent-post">
+                <div class="post-title">
+                  How To Blow Through Capital At An Incredible Rate
+                </div>
+                <span>Jan 15, 2023</span>
+              </a>
+              <a class="recent-post">
+                <div class="post-title">
+                  How To Blow Through Capital At An Incredible Rate
+                </div>
+                <span>Jan 15, 2023</span>
+              </a>
+              <a class="recent-post">
+                <div class="post-title">
+                  How To Blow Through Capital At An Incredible Rate
+                </div>
+                <span>Jan 15, 2023</span>
+              </a>
+            </div>
+            <div class="categories">
+              <h5>Categories</h5>
+              <div class="category">
+                <span class="title"> Technology</span> - 
+                <span class="sum">20 Posts</span>
+              </div>
+              <div class="category">
+                <span class="title"> Freelancing - </span>
+                <span class="sum">03 Posts</span>
+              </div>
+              <div class="category">
+                <span class="title"> Busines - </span>
+                <span class="sum">22 Posts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

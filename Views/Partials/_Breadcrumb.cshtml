@@ -7,6 +7,7 @@
 
 @{
     var selection = Model.Ancestors().ToArray(); 
+    var pageTitle = Model.Value("pageTitle");
 }
 
 
@@ -14,14 +15,34 @@
 <section class="breadcrumb">
   <img class="bg-lines" src="~/images/bg-effects/background-lines.svg" alt="lines" />
   <div class="container">
+      
       @if (selection?.Length > 0)
         {
+        <div class="d-flex">
+        
                 @foreach (var item in selection.OrderBy(x => x.Level))
                 {
-                    <a href="@item.Url(PublishedUrlProvider)"> @item.Name </a>
+                    <a href="@item.Url(PublishedUrlProvider)" class="mx-1"> @item.Name </a>
                 }
         
-                <h2 class="active">@Model.Value("pageTitle")</h2>
+        
+                 @* <span>@Model.Name</span> *@
+                 
+        </div>
+            @if (string.IsNullOrWhiteSpace(pageTitle?.ToString()))
+            {
+                <h4>@Model.Name</h4>
+            }
+            else
+            {
+                <h3 class="active">@pageTitle</h3>
+            }
+
+@*             <h3 class="active">
+                @(string.IsNullOrWhiteSpace(pageTitle?.ToString()) ? Model.Name : pageTitle)
+            </h3> *@
+            
+                @* <h3 class="active">@Model.Value("pageTitle")</h3> *@
 
         }
     

@@ -641,6 +641,10 @@ header .container .btn-theme {
   justify-content: center;
   margin-block: 2rem;
 }
+.articles .pagination .active {
+  background-color: #0E1021;
+  color: #FFFFFF;
+}
 
 .article-details .container {
   padding-block: 3rem;
