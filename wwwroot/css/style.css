@@ -245,6 +245,13 @@ header .container .btn-theme {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+.breadcrumb .container a {
+  z-index: 2;
+}
+.breadcrumb .container h4 {
+  z-index: 2;
 }
 
 .showcase {
@@ -669,6 +676,7 @@ header .container .btn-theme {
 }
 .article-details .container .article-columns .article {
   min-height: 70dvh;
+  max-width: 800px;
 }
 .article-details .container .article-columns .article img {
   width: 100%;
@@ -717,35 +725,43 @@ header .container .btn-theme {
   bottom: 0;
   left: 0;
 }
-.article-details .container .article-columns .sidebar .recent-posts, .article-details .container .article-columns .sidebar .categories {
+.article-details .container .article-columns .sidebar .recent-posts,
+.article-details .container .article-columns .sidebar .categories {
   border: 1px solid #F3F3F3;
   padding: 1.8rem;
   margin-bottom: 2rem;
 }
-.article-details .container .article-columns .sidebar .recent-posts .recent-post, .article-details .container .article-columns .sidebar .categories .recent-post {
+.article-details .container .article-columns .sidebar .recent-posts .recent-post,
+.article-details .container .article-columns .sidebar .categories .recent-post {
   cursor: pointer;
   width: 100%;
   border-bottom: 1px solid #F3F3F3;
   display: block;
   padding-block: 1rem;
 }
-.article-details .container .article-columns .sidebar .recent-posts .recent-post:hover, .article-details .container .article-columns .sidebar .categories .recent-post:hover {
+.article-details .container .article-columns .sidebar .recent-posts .recent-post:hover,
+.article-details .container .article-columns .sidebar .categories .recent-post:hover {
   color: #A4A4A4;
 }
-.article-details .container .article-columns .sidebar .recent-posts .recent-post .post-title, .article-details .container .article-columns .sidebar .categories .recent-post .post-title {
+.article-details .container .article-columns .sidebar .recent-posts .recent-post .post-title,
+.article-details .container .article-columns .sidebar .categories .recent-post .post-title {
   font-weight: 700;
 }
-.article-details .container .article-columns .sidebar .recent-posts .recent-post span, .article-details .container .article-columns .sidebar .categories .recent-post span {
+.article-details .container .article-columns .sidebar .recent-posts .recent-post span,
+.article-details .container .article-columns .sidebar .categories .recent-post span {
   font-size: 14px;
   font-style: italic;
 }
-.article-details .container .article-columns .sidebar .recent-posts .category, .article-details .container .article-columns .sidebar .categories .category {
+.article-details .container .article-columns .sidebar .recent-posts .category,
+.article-details .container .article-columns .sidebar .categories .category {
   margin-block: 0.6rem;
 }
-.article-details .container .article-columns .sidebar .recent-posts .category .title, .article-details .container .article-columns .sidebar .categories .category .title {
+.article-details .container .article-columns .sidebar .recent-posts .category .title,
+.article-details .container .article-columns .sidebar .categories .category .title {
   font-weight: bold;
 }
-.article-details .container .article-columns .sidebar .recent-posts .category .sum, .article-details .container .article-columns .sidebar .categories .category .sum {
+.article-details .container .article-columns .sidebar .recent-posts .category .sum,
+.article-details .container .article-columns .sidebar .categories .category .sum {
   color: #A4A4A4;
 }
 
@@ -836,8 +852,6 @@ header .container .btn-theme {
   height: 450px;
   width: 100%;
 }
-
-
 
 footer {
   background-color: #0E1021;

@@ -1,69 +1,74 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using CritoProjectDG.Controllers;
+@using CritoProjectDG.Models;
+@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
-	Layout = "LayoutWithBreadcrumb.cshtml";
+    Layout = "LayoutWithBreadcrumb.cshtml";
+    var contactForm = new ContactForm();
 }
 
 
-    <!-- CONTACT US -->
-    <section class="contactus">
-      <div class="container">
-        <div class="contact-cards">
-          <div class="contact-card">
-            <div class="d-flex align-items-center">
-              <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
-              <h4>Visit Us</h4>
-            </div>
-            <div class="d-grid justify-content-center">
-              <p>Sveavägen 31</p>
-              <p>111 34 STOCKHOLM</p>
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="d-flex align-items-center">
-              <span class="icon"><i class="fa-solid fa-phone"></i></span>
-              <h4>Call Us</h4>
-            </div>
-            <div class="d-grid justify-content-center">
-              <p>+46 (8) 121 470 50</p>
-              <p>+46 (8) 121 470 51</p>
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="d-flex align-items-center">
-              <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-              <h4>Email Us</h4>
-            </div>
-            <div class="d-grid justify-content-center">
-              <p>info@crito.com</p>
-              <p>support@crito.com</p>
-            </div>
-          </div>
+<!-- CONTACT US -->
+<section class="contactus">
+  <div class="container">
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="d-flex align-items-center">
+          <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+          <h4>Visit Us</h4>
+        </div>
+        <div class="d-grid justify-content-center">
+          <p>@Model.Value("contactInfoStreetname")</p>
+          <p>@Model.Value("contactInfoPostalCode") @Model.Value("contactInfoCity")</p>
         </div>
       </div>
-      <div class="contact-form">
-        <div class="container">
-          <h3>Leave us a message for any information</h3>
-
-          <form action="" class="leave-us-a-message">
-            <input type="text" placeholder="Name*" />
-            <input type="email" placeholder="Email*" />
-            <textarea
-              name="message"
-              id=""
-              placeholder="Your message*"
-            ></textarea>
-            <button class="btn-theme">Send Message</button>
-          </form>
+      <div class="contact-card">
+        <div class="d-flex align-items-center">
+          <span class="icon"><i class="fa-solid fa-phone"></i></span>
+          <h4>Call Us</h4>
+        </div>
+        <div class="d-grid justify-content-center">
+          <p>@Model.Value("contactInfoPhonenumber1")</p>
+          <p>@Model.Value("contactInfoPhonenumber2")</p>
         </div>
       </div>
+      <div class="contact-card">
+        <div class="d-flex align-items-center">
+          <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+          <h4>Email Us</h4>
+        </div>
+        <div class="d-grid justify-content-center">
+          <p>@Model.Value("contactInfoEmail1")</p>
+          <p>@Model.Value("contactInfoEmail2")</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form">
+    <div class="container">
+      <h3>Leave us a message for any information</h3>
+@*             hans variant (Html.BeginUmbracoForm("Index","Contact", FormMethod.Post))
+ *@            @using (Html.BeginUmbracoForm<ContactController>(nameof(ContactController.Index)))
+            {
+                <div class="leave-us-a-message">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input asp-for="@contactForm.Name" type="text" placeholder="Name*" />
+                    <input asp-for="@contactForm.Email" type="email" placeholder="Email*" />
+                    <textarea asp-for="@contactForm.Message"
+                              placeholder="Your message*"></textarea>
+                    <button type="submit" class="btn-theme">Send Message <i class="fa-solid fa-arrow-up-right"></i> </button>
+                </div>
+            }
 
-      <iframe
-        class="google-maps"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d934.6594288090376!2d15.212861039767997!3d59.27439074268594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465c14e28e532c05%3A0xafa950e40634bfcb!2s%C3%96rebro%20Slott!5e0!3m2!1ssv!2sse!4v1695806269998!5m2!1ssv!2sse"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </section>
+    </div>
+  </div>
+
+  <iframe
+    class="google-maps"
+    src="@Model.Value("googleMapsCoordinates")"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+</section>

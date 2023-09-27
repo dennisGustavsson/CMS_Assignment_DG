@@ -26,7 +26,6 @@
                 }
         
         
-                 @* <span>@Model.Name</span> *@
                  
         </div>
             @if (string.IsNullOrWhiteSpace(pageTitle?.ToString()))
@@ -38,11 +37,7 @@
                 <h3 class="active">@pageTitle</h3>
             }
 
-@*             <h3 class="active">
-                @(string.IsNullOrWhiteSpace(pageTitle?.ToString()) ? Model.Name : pageTitle)
-            </h3> *@
-            
-                @* <h3 class="active">@Model.Value("pageTitle")</h3> *@
+
 
         }
     
