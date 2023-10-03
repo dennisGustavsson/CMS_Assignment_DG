@@ -48,18 +48,21 @@
   <div class="contact-form">
     <div class="container">
       <h3>Leave us a message for any information</h3>
-@*             hans variant (Html.BeginUmbracoForm("Index","Contact", FormMethod.Post))
- *@            @using (Html.BeginUmbracoForm<ContactController>(nameof(ContactController.Index)))
-            {
-                <div class="leave-us-a-message">
-                    <div asp-validation-summary="ModelOnly"></div>
-                    <input asp-for="@contactForm.Name" type="text" placeholder="Name*" />
-                    <input asp-for="@contactForm.Email" type="email" placeholder="Email*" />
-                    <textarea asp-for="@contactForm.Message"
-                              placeholder="Your message*"></textarea>
-                    <button type="submit" class="btn-theme">Send Message <i class="fa-solid fa-arrow-up-right"></i> </button>
-                </div>
-            }
+      
+@*             hans variant (Html.BeginUmbracoForm("Index","Contact", FormMethod.Post))*@
+
+    
+    @using (Html.BeginUmbracoForm<ContactController>(nameof(ContactController.Index)))
+    {
+        <div class="leave-us-a-message">
+            <div asp-validation-summary="ModelOnly"></div>
+            <input asp-for="@contactForm.Name" type="text" placeholder="Name*" />
+            <input asp-for="@contactForm.Email" type="email" placeholder="Email*" />
+            <textarea asp-for="@contactForm.Message"
+                      placeholder="Your message*"></textarea>
+            <button type="submit" class="btn-theme">Send Message <i class="fa-solid fa-arrow-up-right"></i> </button>
+        </div>
+    }
 
     </div>
   </div>

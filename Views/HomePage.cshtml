@@ -10,5 +10,79 @@
     @await Html.PartialAsync("_AboutCompany")
     @await Html.PartialAsync("_OurServices")
     @await Html.PartialAsync("_ChooseUs")
-    @await Html.PartialAsync("_ProjectsAndCases")
+
+    @{
+    	var projectItems = Umbraco.Content(Guid.Parse("76971ec1-893a-446f-beee-f697641c1265"))
+        .ChildrenOfType("projectItemPage")
+        .Where(x => x.IsVisible());
+    }
+
+        <!-- PROJECT AND CASES -->
+    <section class="projects">
+      <div class="container">
+        <h2 class="section-title">@Model.Value("projectsSectionTitle")</h2>
+        <h3 class="section-title-2">@Model.Value("projectsSectionHeading")</h3>
+        <div class="project-posts">
+          <!-- POSTS -->
+	@foreach (var item in projectItems)
+	{
+	var image = item.Value<IPublishedContent>("projectItemImage");
+          <div class="project">
+            <img src="@image.Url()" alt="" />
+            <h3 class="title">@item.Value("projectIngress")</h3>
+            <div>
+              <a href="@item.Value("projectURL")"
+                >Read More <i class="fa-solid fa-arrow-up-right"></i
+              ></a>
+            </div>
+          </div>
+	}
+        </div>
+        <a class="btn-theme-black" href="#"
+          >All Recent Projects <i class="fa-solid fa-arrow-up-right"></i
+        ></a>
+      </div>
+    </section>
     @await Html.PartialAsync("_MeetOurTeam")
+    @await Html.PartialAsync("_Testimonials")
+    <section class="articles">
+      <div class="container">
+        <h2 class="section-title d-none">Article and News</h2>
+        <div class="d-flex justify-content-between">
+          <h3 class="section-title-2">Get Every Single Articles & News</h3>
+        </div>
+        <div class="article-grid">
+    @{
+    	var latestArticles = Umbraco.Content(Guid.Parse("96f6b956-9902-4e2e-928d-742ca9511c57"))
+        .ChildrenOfType("articleItemPage")
+        .Where(x => x.IsVisible()).Take(3);
+    }
+        @if(latestArticles != null)
+        {
+            @foreach (var item in latestArticles!)
+            {
+                var url = item.Url();
+                var date = item.CreateDate;
+                var image = item.Value<IPublishedContent>("articleImage");
+                var category = item.Value("articleCategory");
+                var title = item.Name();
+                var description = item.Value("articleIngress");
+                <a class="article-card" href="@url">
+                    <div class="article-img">
+                        <img
+                        src="@image?.Url()"
+                        alt=""
+                        />
+                        <span class="article-date">@date.ToString("dd") @date.ToString("MMM")</span>
+                    </div>
+                    <span>@category</span>
+                    <h5>@title</h5>
+                    <p>@description</p>
+                </a>
+            }
+        }
+        </div>
+      </div>
+    </section>
+
+    @await Html.PartialAsync("_Newsletter")

@@ -1,56 +1,36 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using Umbraco.Cms.Core.Models
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
 
+
+@{
+
+var projects = Model.Value<IEnumerable<BlockListItem>>("projectItem")?.Select(x => x.Content);
+
+}
 
     <!-- PROJECT AND CASES -->
     <section class="projects">
       <div class="container">
         <h2 class="section-title">@Model.Value("projectsSectionTitle")</h2>
         <h3 class="section-title-2">@Model.Value("projectsSectionHeading")</h3>
-
         <div class="project-posts">
           <!-- POSTS -->
+	@foreach (var item in projects)
+	{
+	var image = item.Value<MediaWithCrops>("projectImage");
           <div class="project">
-            <img src="./images/adeolu-eletu-E7RLgUjjazc-unsplash.jpg" alt="" />
-            <h3 class="title">Grow Your Business</h3>
+            <img src="@image.Url()" alt="" />
+            <h3 class="title">@item.Value("projectIngress")</h3>
             <div>
-              <a href="#"
+              <a href="@item.Value("projectURL")"
                 >Read More <i class="fa-solid fa-arrow-up-right"></i
               ></a>
             </div>
           </div>
-          <div class="project">
-            <img src="./images/marek-levak-zANXcXyByos-unsplash.jpg" alt="" />
-            <h3 class="title">Why your client needs a responsive website</h3>
-            <div>
-              <a href="#"
-                >Read More <i class="fa-solid fa-arrow-up-right"></i
-              ></a>
-            </div>
-          </div>
-          <div class="project">
-            <img src="./images/oli-dale-xjSkI_seiZY-unsplash.jpg" alt="" />
-            <h3 class="title">Educate your employees to get better results</h3>
-            <div>
-              <a href="#"
-                >Read More <i class="fa-solid fa-arrow-up-right"></i
-              ></a>
-            </div>
-          </div>
-          <div class="project">
-            <img src="./images/carlos-muza-hpjSkU2UYSU-unsplash.jpg" alt="" />
-            <h3 class="title">
-              Business Insights is an important piece of your business
-            </h3>
-            <div>
-              <a href="#"
-                >Read More <i class="fa-solid fa-arrow-up-right"></i
-              ></a>
-            </div>
-          </div>
+	}
         </div>
-
         <a class="btn-theme-black" href="#"
           >All Recent Projects <i class="fa-solid fa-arrow-up-right"></i
         ></a>

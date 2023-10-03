@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@{
+var testimonials = Model.Value<IEnumerable<BlockListItem>>("testimonial")?.Select(x => x.Content);
+}
+
+<section class="ourteam">
+    <div class="container">
+        <div class="testimonials">
+        
+        <h4 class="section-title">@Model.Value("testimonialsSectionTitle")</h4>
+        <h4 class="section-title-2">@Model.Value("testimonialsHeading")</h4>
+            <div class="testamonial-grid">
+                
+                @foreach(var item in testimonials)
+                {
+                var image = item.Value<IPublishedContent>("testimonialImage");
+                
+                <div class="testimonial-post">
+                    <div class="rating">
+                        @{
+                        int rateNr = Convert.ToInt32(item.Value("testimonialRating"));
+                        for(int i = 0; i < rateNr; i++){
+                        <i class="fa-solid fa-star"></i>
+                        }
+                        }
+                        
+                    
+                    </div>
+                    <div class="quote">
+                        
+                        @item.Value("testimonialQuote")
+                    </div>
+                        <div class="client-card">
+                        <img
+                            src="@image.Url()"
+                            alt=""
+                            />
+                        <div class="client">
+                            <div class="client-name">@item.Value("testimonialWriter")</div>
+                            <div class="client-title">Business Manager, Dorfus</div>
+                        </div>
+                    </div>
+                </div>
+                
+                }
+                
+
+            </div>
+        <a class="btn-theme-black" href="@Model.Value("testimonialsButtonURL")"
+        >@Model.Value("testimonialsButtonText") <i class="fa-solid fa-arrow-up-right"></i
+        ></a>
+        </div>
+    </div>
+
+
+</section>

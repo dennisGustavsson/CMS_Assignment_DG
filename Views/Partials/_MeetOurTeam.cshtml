@@ -1,81 +1,42 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
 
 
     <!-- OUR TEAM -->
 
 <section class="ourteam">
   <div class="container">
-    <h3 class="section-title">@Model.Value("meetOurTeamSectionTitle")</h3>
     <div class="team-title">
+    <h3 class="section-title">@Model.Value("meetOurTeamSectionTitle")</h3>
+    <div class="d-flex justify-content-between">
       <h3 class="section-title-2">@Model.Value("meetOurTeamSectionHeading")</h3>
       <a class="btn-theme-line" href="#"
         >Browse Team <i class="fa-solid fa-arrow-up-right"></i
       ></a>
     </div>
+    </div>
     <div class="team-members">
+        @{
+        var teamMembers = Model.Value<IEnumerable<BlockListItem>>("teamMemberSettings")?.Select(x => x.Content);
+        foreach (var item in teamMembers)
+        {
+        var image = item.Value<MediaWithCrops>("teamMemberImage");
+
       <div class="member">
-        <img
-          src="./images/christina-wocintechchat-com-SJvDxw0azqw-unsplash.jpg"
-          alt=""
-        />
-        <h4 class="member-name">Kristine Palmer</h4>
-        <h5 class="member-title">Chef Operation Officer</h5>
+        @{if (image != null)
+        {
+            <img src="@image?.MediaUrl()"  alt="@image?.Value("alt")" />
+        }
+        }
+
+        <h4 class="member-name">@item.Value("teamMemberFullname")</h4>
+        <h5 class="member-title">@item.Value("teamMemberWorkTitle")</h5>
       </div>
-      <div class="member">
-        <img src="./images/itay-verchik-6ZKGBzrDd3I-unsplash.jpg" alt="" />
-        <h4 class="member-name">Mark Aubri</h4>
-        <h5 class="member-title">Senior Consultant</h5>
-      </div>
-      <div class="member">
-        <img
-          src="~/images/christina-wocintechchat-com-Zpzf7TLj_gA-unsplash.jpg"
-          alt=""
-        />
-        <h4 class="member-name">Kimberly Hansen</h4>
-        <h5 class="member-title">Senior Consultant</h5>
-      </div>
-      <div class="member">
-        <img
-          src="./images/the-connected-narrative-N8lRH2uxih4-unsplash.jpg"
-          alt=""
-        />
-        <h4 class="member-name">Justin Willoman</h4>
-        <h5 class="member-title">Senior Tech Consultant</h5>
-      </div>
+        }
+        }
     </div>
-    <div class="testimonials">
-      <h4 class="section-title">Testimonials</h4>
-      <h4 class="section-title-2">What Our Clients Says</h4>
-      <div class="testamonial-grid">
-        <div class="testimonial-post">
-          <div class="rating">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-          <div class="quote">
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatem nesciunt reprehenderit similique ipsa ullam aliquam
-            repellendus est voluptate. Quas magni praesentium minima
-            laudantium!"
-          </div>
-          <div class="client-card">
-            <img
-              src="./images/vince-veras-AJIqZDAUD7A-unsplash.jpg"
-              alt=""
-            />
-            <div class="client">
-              <div class="client-name">Cassandra Warren</div>
-              <div class="client-title">Business Manager, Dorfus</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a class="btn-theme-black" href="#"
-        >All Reviews <i class="fa-solid fa-arrow-up-right"></i
-      ></a>
-    </div>
+
   </div>
 </section>

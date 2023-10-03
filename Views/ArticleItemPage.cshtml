@@ -12,7 +12,6 @@
 }
 
 
-
     <section class="article-details">
       <div class="container">
         <div class="article-header">
@@ -92,4 +91,46 @@
           </div>
         </div>
       </div>
+</section>
+    <section class="articles bg-theme">
+    <div class="container">
+        <h2 class="section-title d-none">Article and News</h2>
+        <div class="d-flex justify-content-between">
+        <h3 class="section-title-2">Get Every Single Articles & News</h3>
+                        <a href="/news" class="btn-theme-line"
+                  >Browse Articles <i class="fa-solid fa-arrow-up-right"></i
+                ></a>
+        </div>
+        <div class="article-grid">
+        @{
+        var latestArticles = Umbraco.Content(Guid.Parse("96f6b956-9902-4e2e-928d-742ca9511c57"))
+        .ChildrenOfType("articleItemPage")
+        .Where(x => x.IsVisible()).Take(3);
+        }
+        @if(latestArticles != null)
+        {
+        @foreach (var item in latestArticles!)
+        {
+        var url = item.Url();
+        var date = item.CreateDate;
+        var articleImage = item.Value<IPublishedContent>("articleImage");
+        var category = item.Value("articleCategory");
+        var title = item.Name();
+        var description = item.Value("articleIngress");
+        <a class="article-card" href="@url">
+        <div class="article-img">
+        <img
+        src="@articleImage?.Url()"
+        alt=""
+        />
+        <span class="article-date">@date.ToString("dd") @date.ToString("MMM")</span>
+        </div>
+        <span>@category</span>
+        <h5>@title</h5>
+        <p>@description</p>
+        </a>
+        }
+        }
+        </div>
+    </div>
     </section>

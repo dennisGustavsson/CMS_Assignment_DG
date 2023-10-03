@@ -9,14 +9,14 @@
         <div class="left-box">
           <h2 class="section-title">Features</h2>
           <h1>@Model.Value("featuresTitle")</h1>
-          <a class="btn-theme" href="#learnmore"
+          <a class="btn-theme" href="@Model.Value("featuresButtonURL")"
             >Learn More <i class="fa-regular fa-arrow-up-right"></i
           ></a>
         </div>
         <div class="right-box">
           
             @{
-                var features = Model.Value<IEnumerable<BlockListItem>>("feature")?.Select(x => x.Content);
+                var features = Model.Value<IEnumerable<BlockListItem>>("featureItem")?.Select(x => x.Content);
                 foreach (var feature in features)
                 {
                     var typedMediaPickerSingle = feature.Value<MediaWithCrops>("featureIcon");
