@@ -17,4 +17,6 @@ public class DataContext : DbContext
     public DbSet<ContactEntity> Contacts { get; set; }
     public DbSet<MessageEntity> Messages { get; set; }
 
+    public DbSet<NewsletterEntity> NewsletterEmails { get; set; }
+
 }

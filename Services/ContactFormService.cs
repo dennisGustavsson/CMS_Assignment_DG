@@ -14,17 +14,20 @@ public class ContactFormService
 
     public async Task AddContactFormRequestAsync(ContactForm contactForm)
     {
-
-        var contact = await _dataContext.Contacts.FindAsync(contactForm.Email);
-
-        if (contact == null)
+        try
         {
-            contact = new ContactEntity { Name = contactForm.Name, Email = contactForm.Email };
-            _dataContext.Contacts.Add(contact);
-        }
-        var message = new MessageEntity { Email = contactForm.Email, Content = contactForm.Message };
-        _dataContext.Messages.Add(message);
-        await _dataContext.SaveChangesAsync();
+            var contact = await _dataContext.Contacts.FindAsync(contactForm.Email);
+
+            if (contact == null)
+            {
+                contact = new ContactEntity { Name = contactForm.Name, Email = contactForm.Email };
+                _dataContext.Contacts.Add(contact);
+            }
+            var message = new MessageEntity { Email = contactForm.Email, Content = contactForm.Message };
+            _dataContext.Messages.Add(message);
+            await _dataContext.SaveChangesAsync();
+        } catch { }
+
     }
 
 }

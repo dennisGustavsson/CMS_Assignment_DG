@@ -1,16 +1,27 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+﻿@using CritoProjectDG.Controllers;
+@using CritoProjectDG.Models;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
-
+@{
+    var newsletter = new NewsletterForm();
+}
 <!-- NEWSLETTER PART -->
 
 <section class="newletter">
   <div class="container">
     <img src="~/images/bg-effects/background-wavy-lines.svg" alt="" />
     <h3>Get News Updates By Signing Up</h3>
-    <form action="">
-      <input type="email" />
-      <button class="btn-theme">Subscribe</button>
-    </form>
+
+        @using (Html.BeginUmbracoForm<NewsletterController>(nameof(NewsletterController.NewsletterPost), FormMethod.Post, new { novalidate = "novalidate" }))
+        {
+            <div asp-validation-summary="ModelOnly"></div>
+            <span asp-validation-for="@newsletter.Email" class="error"></span>
+            <input asp-for="@newsletter.Email" type="email"/>
+            <button type="submit" class="btn-theme">Subscribe</button>
+        }
+
+
+
   </div>
 </section>
 

@@ -36,6 +36,7 @@ namespace CritoProjectDG
             services.AddDbContext<DataContext>(x => x.UseSqlite(_config.GetConnectionString("sqliteDB")));
 
             services.AddScoped<ContactFormService>();
+            services.AddScoped<NewsletterService>();
 
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
