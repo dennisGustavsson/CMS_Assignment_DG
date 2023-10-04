@@ -51,13 +51,16 @@
       
 @*             hans variant (Html.BeginUmbracoForm("Index","Contact", FormMethod.Post))*@
 
-    
-    @using (Html.BeginUmbracoForm<ContactController>(nameof(ContactController.Index)))
+
+            @using (Html.BeginUmbracoForm<ContactController>(nameof(ContactController.Index), FormMethod.Post, new { novalidate = "novalidate" }))
     {
         <div class="leave-us-a-message">
             <div asp-validation-summary="ModelOnly"></div>
+            <span asp-validation-for="@contactForm.Name" class="error"></span>
             <input asp-for="@contactForm.Name" type="text" placeholder="Name*" />
+                    <span asp-validation-for="@contactForm.Email" class="error"></span>
             <input asp-for="@contactForm.Email" type="email" placeholder="Email*" />
+                    <span asp-validation-for="@contactForm.Message" class="error"></span>
             <textarea asp-for="@contactForm.Message"
                       placeholder="Your message*"></textarea>
             <button type="submit" class="btn-theme">Send Message <i class="fa-solid fa-arrow-up-right"></i> </button>

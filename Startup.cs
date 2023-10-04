@@ -1,3 +1,7 @@
+using CritoProjectDG.Contexts;
+using CritoProjectDG.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace CritoProjectDG
 {
     public class Startup
@@ -29,6 +33,10 @@ namespace CritoProjectDG
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(x => x.UseSqlite(_config.GetConnectionString("sqliteDB")));
+
+            services.AddScoped<ContactFormService>();
+
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
