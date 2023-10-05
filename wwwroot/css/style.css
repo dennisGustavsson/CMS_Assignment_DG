@@ -398,6 +398,12 @@ header .container .btn-theme {
 }
 .about-showcase .container .right-box h3 {
   font-size: 38px;
+  font-weight: 700;
+  margin-block: 1rem;
+}
+.about-showcase .container .right-box p {
+  flex: 2;
+  margin-block: 2rem;
 }
 
 .services {
@@ -415,7 +421,11 @@ header .container .btn-theme {
 }
 .services .container .service-grid .service-card {
   background-color: #FFFFFF;
+  display: grid;
+  position: relative;
+  grid-auto-rows: min-content;
   padding: 3rem 2rem 4rem 2rem;
+  max-height: 450px;
 }
 .services .container .service-grid .service-card .card-line {
   border-bottom: 2px solid #191919;
@@ -428,6 +438,7 @@ header .container .btn-theme {
 }
 .services .container .service-grid .service-card p {
   padding: 1rem 0;
+  flex: 1;
 }
 .services .container .service-grid .service-card:hover {
   background-color: #F9D783;
@@ -436,6 +447,11 @@ header .container .btn-theme {
   background-color: #FFFFFF;
   color: #191919;
   transition: none;
+}
+.services .container .service-grid .service-card .btn-round {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
 }
 .services .background-lines {
   position: absolute;

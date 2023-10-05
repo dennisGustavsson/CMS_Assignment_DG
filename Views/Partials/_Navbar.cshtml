@@ -16,6 +16,17 @@
 }
 
 
+<ul>
+	@foreach (var item in selection)
+	{
+		<li>
+			<a href="@item.Url()">@item.Name()</a>
+		</li>
+	}
+</ul>
+
+
+
 
 <!--    HEADER PART  -->
     <header>
@@ -52,13 +63,13 @@
         <div class="contact-info">
           <div>
             <span
-              ><i class="fa-regular fa-phone-volume"></i> +46 (8) 121 470 50</span
+              ><i class="fa-regular fa-phone-volume"></i>@Model.Value("navBarPhonenumber")</span
             >
             <span
-              ><i class="fa-regular fa-envelope-dot"></i> info@crito.com</span
+              ><i class="fa-regular fa-envelope-dot"></i>@Model.Value("navBarEmailaddress")</span
             >
             <span
-              ><i class="fa-regular fa-location-dot"></i>Sveavägen 31, 111 34 STOCKHOLM</span
+              ><i class="fa-regular fa-location-dot"></i>@Model.Value("navBarStreetaddress")</span
             >
           </div>
           <div class="social-media">
