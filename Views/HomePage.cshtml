@@ -29,9 +29,9 @@
 	var image = item.Value<IPublishedContent>("projectItemImage");
           <div class="project">
             <img src="@image.Url()" alt="" />
-            <h3 class="title">@item.Value("projectIngress")</h3>
+            <h3 class="title">@item.Value("projectItemIngress")</h3>
             <div>
-              <a href="@item.Value("projectURL")"
+              <a href="@item.Url()"
                 >Read More <i class="fa-solid fa-arrow-up-right"></i
               ></a>
             </div>
@@ -47,7 +47,7 @@
     @await Html.PartialAsync("_Testimonials")
     <section class="articles">
       <div class="container">
-        <h2 class="section-title d-none">Article and News</h2>
+        <h2 class="section-title">Article and News</h2>
         <div class="d-flex justify-content-between">
           <h3 class="section-title-2">Get Every Single Articles & News</h3>
         </div>
@@ -55,7 +55,7 @@
     @{
     	var latestArticles = Umbraco.Content(Guid.Parse("96f6b956-9902-4e2e-928d-742ca9511c57"))
         .ChildrenOfType("articleItemPage")
-        .Where(x => x.IsVisible()).Take(3);
+        .Where(x => x.IsVisible()).OrderByDescending(x => x.CreateDate).Take(3);
     }
         @if(latestArticles != null)
         {
